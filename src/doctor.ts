@@ -278,3 +278,38 @@ export function restore(text: string, chain: readonly Step[]): Candidate | null 
   }
   return { text: cur.text, chain: [...chain], score: scoreText(cur.text) + cost, segments: cur.segments, guessed, lost };
 }
+
+/** One misreading with the bytes involved, for showing how the garbage came about. */
+export interface Stage {
+  step: Step;
+  /** Text before this misreading. */
+  before: string;
+  /** The bytes the wrong decoder saw (-1 = unknown byte). */
+  bytes: number[];
+  /** Text after it. */
+  after: string;
+}
+
+/** Walk a chain back from the garbled input and collect every stage, oldest first. */
+export function trace(input: string, chain: readonly Step[]): Stage[] {
+  const out: Stage[] = [];
+  let cur = input;
+  for (const step of [...chain].reverse()) {
+    let bytes: number[] = [];
+    if (step.escapesLost) {
+      bytes = Array.from(encode(cur.replace(/\$[@B]|\([BJI]/g, (m) => '\x1b' + m), 'windows-1252').bytes);
+    } else {
+      const enc = encodeForRepair(cur, step.readAs);
+      for (const t of enc?.toks ?? []) {
+        if (typeof t === 'number') bytes.push(t);
+        // A placeholder such as cp932's '・' most likely stands for lost bytes.
+        else if (t.t === 'choice') bytes.push(...(t.hole && t.hole.cost >= t.litCost ? [-1] : t.alts[0]!));
+        else if (t.t === 'hole') bytes.push(-1);
+      }
+    }
+    const before = undo(cur, step)?.text ?? '';
+    out.unshift({ step, before, bytes, after: cur });
+    cur = before;
+  }
+  return out;
+}

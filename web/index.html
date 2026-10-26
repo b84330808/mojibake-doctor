@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- No network access at all: the page cannot send your text anywhere. -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; form-action 'none'; base-uri 'none'"
+    />
+    <meta name="referrer" content="no-referrer" />
+    <title>Mojibake Doctor · 亂碼醫生 · 文字化けドクター</title>
+    <meta
+      name="description"
+      content="Fix mojibake (文字化け / 亂碼 / 乱码) in Japanese, Chinese and Korean text in your browser: restore the original and see what went wrong. Nothing leaves the page."
+    />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="top">
+      <div class="brand">
+        <img src="favicon.svg" alt="" width="36" height="36" />
+        <div>
+          <h1 data-i18n="title">亂碼醫生</h1>
+          <p class="sub">Mojibake Doctor</p>
+        </div>
+      </div>
+      <nav class="langs" aria-label="Language">
+        <button type="button" data-lang="zh-TW" lang="zh-Hant-TW">繁中</button>
+        <button type="button" data-lang="ja" lang="ja">日本語</button>
+        <button type="button" data-lang="en" lang="en">EN</button>
+      </nav>
+    </header>
+
+    <main>
+      <p class="tagline" data-i18n="tagline"></p>
+      <p class="privacy">
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+          <path
+            fill="currentColor"
+            d="M12 1a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-9a2 2 0 0 0-2-2h-1V6a5 5 0 0 0-5-5Zm-3 8V6a3 3 0 1 1 6 0v3H9Z"
+          />
+        </svg>
+        <span data-i18n="privacy"></span>
+      </p>
+
+      <div class="tabs" role="tablist">
+        <button type="button" role="tab" id="tab-fix" aria-controls="panel-fix" aria-selected="true" data-i18n="tabFix"></button>
+        <button type="button" role="tab" id="tab-make" aria-controls="panel-make" aria-selected="false" data-i18n="tabMake"></button>
+      </div>
+
+      <section id="panel-fix" role="tabpanel" aria-labelledby="tab-fix">
+        <label for="input" class="label" data-i18n="inputLabel"></label>
+        <textarea id="input" rows="5" spellcheck="false" autocomplete="off" data-i18n-placeholder="placeholder"></textarea>
+        <div class="examples">
+          <span data-i18n="examples"></span>
+          <span id="examples"></span>
+        </div>
+        <div id="result" aria-live="polite"></div>
+      </section>
+
+      <section id="panel-make" role="tabpanel" aria-labelledby="tab-make" hidden>
+        <p data-i18n="makeIntro"></p>
+        <label for="make-input" class="label" data-i18n="makeInput"></label>
+        <textarea id="make-input" rows="3" spellcheck="false"></textarea>
+        <div id="make-steps"></div>
+        <button type="button" id="make-add" class="secondary" data-i18n="makeAdd"></button>
+        <h2 class="label" data-i18n="makeResult"></h2>
+        <div class="result-text" id="make-output"></div>
+        <div class="row">
+          <button type="button" id="make-copy" class="secondary" data-i18n="copy"></button>
+          <button type="button" id="make-send" data-i18n="makeSend"></button>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p data-i18n="footer"></p>
+      <p>
+        <a href="https://github.com/b84330808/mojibake-doctor">GitHub</a> · © 2026 Wei-Lun Li
+      </p>
+    </footer>
+    <script src="app.js" type="module"></script>
+  </body>
+</html>

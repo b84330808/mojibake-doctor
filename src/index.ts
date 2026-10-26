@@ -1,5 +1,5 @@
-export { diagnose, fix, garble, restore, findPatterns } from './doctor.js';
-export type { Candidate, Diagnosis, DiagnoseOptions, PatternId, Step } from './doctor.js';
+export { diagnose, fix, garble, restore, trace, findPatterns } from './doctor.js';
+export type { Candidate, Diagnosis, DiagnoseOptions, PatternId, Stage, Step } from './doctor.js';
 export type { Segment } from './repair.js';
 export { encode } from './encodings/encode.js';
 export { decode } from './encodings/decode.js';

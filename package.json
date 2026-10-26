@@ -37,14 +37,16 @@
   ],
   "sideEffects": false,
   "engines": {
-    "node": ">=18"
+    "node": ">=20"
   },
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
     "build:web": "node scripts/build-web.mjs",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "vitest run",
-    "dev": "node scripts/build-web.mjs --serve"
+    "dev": "node scripts/build-web.mjs --serve",
+    "prepare": "npm run build",
+    "stats": "esbuild scripts/stats.ts --bundle --platform=node --format=esm --log-level=warning --outfile=node_modules/.cache/stats.mjs && node node_modules/.cache/stats.mjs"
   },
   "devDependencies": {
     "@types/node": "^24.19.2",
