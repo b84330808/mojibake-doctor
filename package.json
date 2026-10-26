@@ -1,0 +1,56 @@
+{
+  "name": "mojibake-doctor",
+  "version": "0.1.0",
+  "description": "Fix mojibake (文字化け / 亂碼) in CJK text: finds the encoding mix-up, restores the original, and explains what went wrong. Runs fully offline, in the browser or Node.",
+  "keywords": [
+    "mojibake",
+    "encoding",
+    "shift_jis",
+    "cp932",
+    "big5",
+    "gbk",
+    "euc-kr",
+    "utf-8",
+    "文字化け",
+    "亂碼",
+    "乱码"
+  ],
+  "license": "MIT",
+  "author": "Wei-Lun Li",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/b84330808/mojibake-doctor.git"
+  },
+  "homepage": "https://b84330808.github.io/mojibake-doctor/",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "THIRD_PARTY_NOTICES.md"
+  ],
+  "sideEffects": false,
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "build:web": "node scripts/build-web.mjs",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "dev": "node scripts/build-web.mjs --serve"
+  },
+  "devDependencies": {
+    "@types/node": "^24.19.2",
+    "esbuild": "^0.28.2",
+    "fast-check": "^4.10.2",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.5"
+  }
+}
